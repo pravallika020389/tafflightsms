@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface FlightService {
     Flights addFlight(Flights flight);
+
     ResponseEntity<Object> getFlightById(Long flightId);
 
     List<Flights> getAllFlights();

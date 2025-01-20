@@ -47,36 +47,33 @@ public class FlightController {
             } catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed to update flight details");
             }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Flight with id " + id + " not found");
         }
-        else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Flight with id " +id + " not found");
-        }
-        }
+    }
 
 
     @DeleteMapping("/{flightId}")
     public ResponseEntity<String> deleteFlight(@PathVariable("flightId") Long id) {
 
-        ResponseEntity<Object> flightDetails =flightService.getFlightById(id);
+        ResponseEntity<Object> flightDetails = flightService.getFlightById(id);
 
-        if(flightDetails.getStatusCode().is2xxSuccessful()){
+        if (flightDetails.getStatusCode().is2xxSuccessful()) {
             try {
                 flightService.deleteFlight(id);
                 return ResponseEntity.ok("Flight deleted successfully");
             } catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed to delete flight ");
             }
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Flight with id " +id + " not found");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Flight with id " + id + " not found");
         }
 
     }
 
 
-
     @ExceptionHandler
-    public ResponseEntity<?> respondWithError(Exception e){
+    public ResponseEntity<?> respondWithError(Exception e) {
         return new ResponseEntity<>("Exception Occurred. More Info :"
                 + e.getMessage(), HttpStatus.BAD_REQUEST);
     }

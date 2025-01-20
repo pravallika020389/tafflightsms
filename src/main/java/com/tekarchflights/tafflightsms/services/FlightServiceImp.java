@@ -26,8 +26,7 @@ public class FlightServiceImp implements FlightService {
 
     @Override
     public Flights addFlight(Flights flight) {
-
-        return restTemplate.postForObject(dataStore_Flight_Url + "add" , flight , Flights.class);
+        return restTemplate.postForObject(dataStore_Flight_Url + "add", flight, Flights.class);
     }
 
     @Override
@@ -38,7 +37,7 @@ public class FlightServiceImp implements FlightService {
             return ResponseEntity.ok(flight);
         } else {
 
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Flight with id "  + flightId +" not found ");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Flight with id " + flightId + " not found ");
         }
 
     }
@@ -53,7 +52,8 @@ public class FlightServiceImp implements FlightService {
                 url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Flights>>() {}
+                new ParameterizedTypeReference<List<Flights>>() {
+                }
         );
 
         return response.getBody();
@@ -61,8 +61,8 @@ public class FlightServiceImp implements FlightService {
 
     @Override
     public void updateFlightDetails(Long flightId, Flights flight) {
-        try{
-            restTemplate.put(dataStore_Flight_Url + flightId,flight);
+        try {
+            restTemplate.put(dataStore_Flight_Url + flightId, flight);
         } catch (HttpClientErrorException e) {
             System.out.println("Error: " + e.getStatusCode());
         }
@@ -70,7 +70,7 @@ public class FlightServiceImp implements FlightService {
 
     @Override
     public void deleteFlight(Long flightId) {
-        try{
+        try {
             restTemplate.delete(dataStore_Flight_Url + flightId);
         } catch (HttpClientErrorException e) {
             System.out.println("Error: " + e.getStatusCode());
