@@ -61,6 +61,7 @@ public class FlightServiceImp implements FlightService {
 
     @Override
     public void updateFlightDetails(Long flightId, Flights flight) {
+
         try {
             restTemplate.put(dataStore_Flight_Url + flightId, flight);
         } catch (HttpClientErrorException e) {
